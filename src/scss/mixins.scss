@@ -1,0 +1,26 @@
+@mixin container() {
+    width: 1400px;
+    height: 100%;
+    display: flex;
+}
+@mixin center(){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@mixin row(){
+    width: 100%;
+    height: min-content;
+    display: flex;
+    align-items: center;
+}
+@mixin block($height) {
+    width: 100%;
+    height: $height;
+    display: flex;
+}
+@mixin text($fontSize, $color, $fontWeight) {
+    font-size: $fontSize;
+    color: $color;
+    font-weight: $fontWeight;
+}
