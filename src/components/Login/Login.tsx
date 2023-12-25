@@ -6,10 +6,11 @@ import './Login.scss';
 const Login: FC = () => {
 
     const [data, setData] = useState({
-        login: "",
-        password: "",
+        login: "",  // User login
+        password: "",  // User password
     })
 
+    // Handles changes in inputs data
     const handleChange = (e: any) : void => {
         const { name, value } = e.target;
         setData((prevValues) => ({
@@ -18,6 +19,7 @@ const Login: FC = () => {
         }));
     };
 
+    // post function to server (send data)
     const login = (e:any) : void => {
         e.preventDefault();
         // axios.post('url', {data})
