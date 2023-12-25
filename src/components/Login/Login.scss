@@ -1,0 +1,30 @@
+@import '../../scss/mixins.scss';
+
+
+.login{
+    @include block(100vh);
+    &__container{
+        @include center();
+        flex-direction: column;
+        gap: 50px;
+    }
+    &__heading{
+        h1{
+            @include text(45px, #fff, 700);
+            span{
+                color: #F5A006
+            }
+        }
+    }
+    &__form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        button{
+            @include button(300px);
+        }
+        input{
+            @include input(300px);
+        }
+    }
+}

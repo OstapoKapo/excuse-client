@@ -1,12 +1,16 @@
 import './Nullstyle.css'
-// import './App.scss'
+import Login from './components/Login/Login';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 
 function App() {
 
   return (
-    <>
-      <div>dasdasdd</div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />  
+      </Routes>
+    </Router>
   )
 }
 
