@@ -22,7 +22,11 @@ const Login: FC = () => {
     // post function to server (send data)
     const login = (e:any) : void => {
         e.preventDefault();
-        // axios.post('url', {data})
+        try {
+            // axios.post('server url', {data})
+        } catch(error) {
+            console.error(error)
+        }
     }
 
   return (
