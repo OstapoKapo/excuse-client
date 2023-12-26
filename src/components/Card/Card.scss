@@ -8,6 +8,8 @@
     padding: 3px;
     border-radius: 5px;
     background-color: #3F3D56;
+    margin: 10px 10px;
+    padding: 20px;
 
     h3 {
         @include text(17px, white, 500);
