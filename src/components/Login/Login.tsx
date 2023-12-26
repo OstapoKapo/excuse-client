@@ -53,7 +53,6 @@ const Login: FC = () => {
                             login: data.login.toLowerCase(),
                             password: data.password.toLowerCase()
                         };
-                        console.log(userData)
                         if(userData.login === adminData[0]&& userData.password === adminData[1]){
                             navigate('/main')
                         }else{
