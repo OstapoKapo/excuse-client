@@ -2,5 +2,7 @@
 
 .Main{
     @include block(min-height);
+    display: block;
     padding: 100px;
+    padding-top: 0px;
 }
