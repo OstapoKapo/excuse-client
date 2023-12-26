@@ -1,21 +1,22 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './CardContainer.scss';
-import Card from '../Card/Card';
+import Card from './Card/Card';
 
 interface Vidmazka{
     excuse: string,
     date: string,
-    creator: string
+    creator: string,
+    id: number
 }
 
 let array: Array<Vidmazka> = [
-    {creator: 'admin', date: '26/12/2023', excuse: 'Я забув'},
-    {creator: 'admin', date: '26/12/2023', excuse: 'Я забув'},
-    {creator: 'admin', date: '26/12/2023', excuse: 'Я забув'},
-    {creator: 'admin', date: '26/12/2023', excuse: 'Я забув'},
-    {creator: 'admin', date: '26/12/2023', excuse: 'Я забув'},
-    {creator: 'admin', date: '26/12/2023', excuse: 'Я забув'}
+    {creator: 'admin', id:1, date: '27/12/2023', excuse: 'Я забув'},
+    {creator: 'admin', id:2, date: '23/12/2023', excuse: 'Я забув'},
+    {creator: 'admin', id:3, date: '22/12/2023', excuse: 'Я забув Я забув Я забув Я забув Я забув Я забув Я забув'},
+    {creator: 'admin', id:4, date: '26/12/2023', excuse: 'Я забув'},
+    {creator: 'admin', id:5, date: '26/12/2023', excuse: 'Я забув'},
+    {creator: 'admin', id:6, date: '26/12/2023', excuse: 'Я забув'}
 ]
 
 
@@ -74,7 +75,7 @@ const CardContainer = () => {
                 <button onClick={createExuse} className="btn_adding-cards">Додати нову відмазку</button>
             </div>
             <div className="block_cards">
-                {array.map(item=> <Card key={item} excuse={item.excuse} creator={item.creator}/>)}
+                {array.map(item=> <Card key={item.id} excuse={item.excuse} creator={item.creator} date={item.date}/>)}
             </div>
         </div>
     )

@@ -1,0 +1,83 @@
+@import 'src/scss/mixins.scss';
+
+.card {
+    min-height: 100px;
+    width: 100%;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: #3F3D56;
+    margin: 10px 10px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    &__author{
+        min-width: 100px;
+        height: min-content;
+        display: flex;
+        align-items: center;
+        &__img{
+            width: 60px;
+            margin-right: 5px;
+            height: 60px;
+            & img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        &__name{
+            @include text(22px, #fff, 600);
+        }
+    }
+    &__main{
+        width: 60%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    &__data{
+        min-width: 100px;
+        height: min-content;
+        display: flex;
+        align-items: center;
+        &__img{
+            width: 60px;
+            margin-right: 5px;
+            height: 60px;
+            & img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    &__buttons{
+        min-width: 100px;
+        height: min-content;
+        display: flex;
+        align-items: center;
+        &__btn{
+            & img{
+                width: 60px;
+                margin: 5px;
+                height: 60px;
+                cursor: pointer;
+                & img{
+                    width: 100%;
+                    height: 100%;
+                }
+            } 
+        }
+    }
+    &__text{
+        @include text(20px, #fff, 500)
+    }
+    h3 {
+        @include text(17px, white, 500);
+    }
+
+    p {
+        @include text (14px, white, 500)
+    }
+
+
+}
