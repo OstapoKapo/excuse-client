@@ -1,0 +1,23 @@
+@import '../../scss/mixins.scss';
+
+.CardContainer{
+    @include block(90%);
+    flex-direction: column;
+    .block_adding-cards{
+        @include row();
+        @include center();
+        .input_adding-cards{
+            @include input(50%);
+            cursor: text;
+        }
+        .btn_adding-cards{
+            @include button(20%);
+            margin-left: 50px;
+        }
+    }
+    .block_cards{
+        margin-top: 30px;
+        flex-wrap: wrap;
+        @include center();
+    }
+}
