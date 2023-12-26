@@ -5,6 +5,32 @@ import Card from '../Card/Card';
 const CardContainer = () => {
     const [exuse, setExuse] = useState<string>('');
 
+    const getCurrentDate = () : string => {
+        const currentDate: Date = new Date();
+    
+        const day: string = currentDate.getDate().toString().padStart(2, '0');
+        const month: string = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        const year: number = currentDate.getFullYear();
+    
+        return `${month}/${day}/${year}`;
+      };
+    
+      const [data, setData] = useState<object>({
+        creator: "",  // author's name
+        exuse: "",  // exuse
+        date: getCurrentDate(),
+      });
+
+
+    // Handles changes in inputs data
+    const handleChange = (e: any) : void => {
+        const { name, value } = e.target;
+        setData((prevValues) => ({
+          ...prevValues,
+          [name]: value,
+        }));
+    };
+
     const createExuse = async  (e:any) => {
         e.preventDefault();
         console.log(exuse);
