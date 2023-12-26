@@ -55,7 +55,7 @@ const Login: FC = () => {
                         };
                         console.log(userData)
                         if(userData.login === adminData[0]&& userData.password === adminData[1]){
-                            navigate('/mainPage')
+                            navigate('/main')
                         }else{
                             alert('Incorrect password or name')
                         }
