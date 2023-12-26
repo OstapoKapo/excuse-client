@@ -6,9 +6,18 @@
     .block_adding-cards{
         @include row();
         @include center();
-        .input_adding-cards{
-            @include input(50%);
-            cursor: text;
+        .for_inputs{
+            width: 50%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            .input_adding-cards{
+                @include input(90%);
+                cursor: text;
+                margin-bottom: 10px;
+            }
         }
         .btn_adding-cards{
             @include button(20%);
