@@ -1,1 +1,21 @@
 @import '../../scss/mixins.scss';
+
+.Card {
+    min-height: 160px;
+    max-width: 250px;
+    height: auto;
+    width: auto;
+    padding: 3px;
+    border-radius: 5px;
+    background-color: #3F3D56;
+
+    h3 {
+        @include text(17px, white, 500);
+    }
+
+    p {
+        @include text (14px, white, 500)
+    }
+
+
+}
