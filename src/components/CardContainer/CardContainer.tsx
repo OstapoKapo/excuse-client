@@ -21,8 +21,6 @@ let array: Array<Vidmazka> = [
 
 
 const CardContainer = () => {
-    const [exuse, setExuse] = useState<string>('');
-    const [creator, setCreator] = useState<string>('');
 
     const getCurrentDate = () : string => {
         const currentDate: Date = new Date();
@@ -34,7 +32,7 @@ const CardContainer = () => {
         return `${month}/${day}/${year}`;
       };
     
-      const [data, setData] = useState<object>({
+      const [data, setData] = useState({
         creator: "",  // author's name
         exuse: "",  // exuse
         date: getCurrentDate(),
@@ -52,9 +50,9 @@ const CardContainer = () => {
 
     const createExuse = async  (e:any) => {
         e.preventDefault();
-        console.log(exuse);
+        console.log(data);
         try {
-            await axios.post('http://localhost:8000/createExuse', {creator: creator, date: new Date(), excuse: exuse})
+            await axios.post('http://localhost:8000/createExuse', {creator: data.creator, date: data.date, excuse: data.exuse})
                  .then((response) => {
                     console.log(response)
                  })
@@ -70,9 +68,23 @@ const CardContainer = () => {
     return (
         <div className='CardContainer'>
             <div className="block_adding-cards">
-                <input type="text" className="input_adding-cards" placeholder='Автор...' value={creator} onChange={(e: any) : void => setCreator(e.target.value)}/>
-                <input type="text" className="input_adding-cards" placeholder='Відмазка...' value={exuse} onChange={(e: any) : void => setExuse(e.target.value)}/>                
-                <button onClick={createExuse} className="btn_adding-cards">Додати нову відмазку</button>
+            <input
+            type="text"
+            className="input_adding-cards"
+            placeholder="Автор..."
+            name="creator"
+            value={data.creator}
+            onChange={handleChange}
+            />
+            <input
+            type="text"
+            className="input_adding-cards"
+            placeholder="Відмазка..."
+            name="exuse"
+            value={data.exuse}
+            onChange={handleChange}
+            />
+            <button onClick={createExuse} className="btn_adding-cards">Додати нову відмазку</button>
             </div>
             <div className="block_cards">
                 {array.map(item=> <Card key={item.id} excuse={item.excuse} creator={item.creator} date={item.date}/>)}
