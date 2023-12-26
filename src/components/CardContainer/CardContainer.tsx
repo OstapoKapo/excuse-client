@@ -20,7 +20,6 @@ let array: Array<Vidmazka> = [
 
 
 const CardContainer = () => {
-    const [exuse, setExuse] = useState<string>('');
 
     const getCurrentDate = () : string => {
         const currentDate: Date = new Date();
@@ -50,7 +49,7 @@ const CardContainer = () => {
 
     const createExuse = async  (e:any) => {
         e.preventDefault();
-        console.log(exuse);
+        console.log(data);
         try {
             await axios.post('http://localhost:8000/createExuse', {creator: data.creator, date: data.date, excuse: data.exuse})
                  .then((response) => {
