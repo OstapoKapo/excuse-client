@@ -1,5 +1,6 @@
 @import '../../scss/mixins.scss';
 
 .Main{
-    @include block(100vh);
+    @include block(min-height);
+    padding: 100px;
 }
