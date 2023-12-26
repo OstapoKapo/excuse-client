@@ -1,10 +1,10 @@
 import './Card.scss';
 
-const Card = () => {
+const Card = (props) => {
     return (
         <div className='Card'>
-            <h3>Відмазка</h3>
-            <p> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias dolorem optio sit! Sint, aliquam saepe!</p>
+            <h3>{props.creator}</h3>
+            <p>{props.excuse}</p>
         </div>
     )
 }
