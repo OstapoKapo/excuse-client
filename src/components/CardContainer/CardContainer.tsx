@@ -80,22 +80,35 @@ const CardContainer: React.FC = () => {
     }));
   };
 
-  const createExcuse = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    try {
-      await axios.post('http://localhost:8000/createExuse', {
-        creator: data.creator,
-        date: data.date,
-        excuse: data.excuse,
-      });
 
-      const response = await axios.get('http://localhost:8000/api/exuses');
-      const dividedExcuses = chunkArray(response.data.reverse(), 5);
-      setExcuses(dividedExcuses);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+const createExcuse = async (e: React.FormEvent<HTMLButtonElement>) => {
+  e.preventDefault();
+
+  if (!data.creator.trim() || !data.excuse.trim()) {
+    alert('Please enter both creator and excuse')
+    return;
+  }
+
+  try {
+    await axios.post('http://localhost:8000/createExuse', {
+      creator: data.creator,
+      date: data.date,
+      excuse: data.excuse,
+    });
+
+    const response = await axios.get('http://localhost:8000/api/exuses');
+    const dividedExcuses = chunkArray(response.data.reverse(), 4);
+    setExcuses(dividedExcuses);
+    setData({
+      creator: '',
+      excuse: '',
+      date: getCurrentDate(),
+    });
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 
   const deleteExcuse = async (excuseId: string) => {
     try {
