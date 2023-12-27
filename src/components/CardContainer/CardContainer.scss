@@ -14,6 +14,7 @@
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
+            gap: 10px;
             .input_adding-cards{
                 @include input(90%);
                 cursor: text;
@@ -34,4 +35,29 @@
         @include center();
         width: 100%;
     }
+}
+@media screen and (max-width:1450px){
+    .block_adding-cards{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .btn_adding-cards{
+        margin-left: 0 !important;
+        font-size: 16px !important;
+    }
+}
+@media screen and (max-width:1265px){
+        .btn_adding-cards{
+            width: 213.11px !important;
+        }    
+}
+@media screen and (max-width:800px){
+    .btn_adding-cards{
+    width: 170px !important;
+    }
+}
+@media screen and (max-width:615px) {
+    .btn_adding-cards{
+        width: 135px !important;
+        }
 }

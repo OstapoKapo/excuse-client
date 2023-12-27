@@ -1,5 +1,6 @@
 
 import { FC } from 'react';
+import { useEffect } from 'react';
 import './Card.scss';
 import axios from 'axios';
 import AuthorImg from  './img/author.png';
@@ -69,7 +70,7 @@ interface CardProp {
     onDelete: (idObject: string) => void;
 }
 
-
+const Card: FC<CardProp> = ({ idObject, creator, excuse, onDelete }) => {
     return (
         <div className='card'>
             <div className="card__author">

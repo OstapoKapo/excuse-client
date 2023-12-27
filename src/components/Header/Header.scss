@@ -2,12 +2,21 @@
 .Header{
     @include center();
     height: 70px;
-    margin-bottom: 40px;
-    padding-top: 20px;
-}
-h1{
-    @include text(45px, #fff, 700);
-    span{
-        color: #F5A006;
+    padding: 70px 0;
+    h1{
+        @include text(45px, #fff, 700);
+        span{
+            color: #F5A006;
+        }
+    }
+    @media screen and (max-width:700px){
+        h1{
+            font-size: 38px;
+        }
+    }
+    @media screen and (max-width:570px) {
+        h1{
+            font-size: 30px;
+        }
     }
 }
