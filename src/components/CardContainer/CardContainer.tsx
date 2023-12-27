@@ -100,8 +100,8 @@ const CardContainer: React.FC = () => {
   const deleteExcuse = async (excuseId: string) => {
     try {
       await axios.delete(`http://localhost:8000/deleteExuse/${excuseId}`);
-      const updatedExcuses = excuses.filter(item => item._id !== excuseId);
-      setExcuses(updatedExcuses);
+      const updatedExcuses: Excuse[][] = excuses.map(chunk => chunk.filter(item => item._id !== excuseId));
+      setExcuses(updatedExcuses)
     } catch (error) {
       console.log('Error deleting: ', error);
     }
