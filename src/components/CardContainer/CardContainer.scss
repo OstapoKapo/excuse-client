@@ -7,23 +7,23 @@
     .block_adding-cards{
         @include row();
         @include center();
+        flex-direction: column;
+        gap: 10px;
         .for_inputs{
-            width: 50%;
+            width: 100%;
             height: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
+            @include center();
             gap: 10px;
             .input_adding-cards{
-                @include input(90%);
+                @include input(25%);
                 cursor: text;
-                margin-bottom: 10px;
+            }
+            .btn_adding-cards{
+                @include button(150px);
             }
         }
-        .btn_adding-cards{
-            @include button(20%);
-            margin-left: 50px;
+        .search-input{
+            @include input(calc(170px + 50%));
         }
     }
     .block_cards{
@@ -38,6 +38,8 @@
     .pagination-buttons{
         position: absolute;
         bottom: 30px;
+        padding: 5px 10px;
+        border-radius: 5px;
     }
 }
 @media screen and (max-width:1450px){

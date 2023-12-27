@@ -140,10 +140,11 @@ const createExcuse = async (e: React.FormEvent<HTMLButtonElement>) => {
             value={data.excuse}
             onChange={handleChange}
           />
+          <button onClick={createExcuse} className='btn_adding-cards'>
+          Додати
+          </button>
         </div>
-        <button onClick={createExcuse} className='btn_adding-cards'>
-          Додати нову відмазку
-        </button>
+        <input className='search-input' type="text" placeholder='Пошук...'/>
       </div>
       <div className='block_cards'>
         {excuses[currentPage - 1]?.map((item, index) => (
@@ -156,6 +157,7 @@ const createExcuse = async (e: React.FormEvent<HTMLButtonElement>) => {
           page={currentPage}
           onChange={handlePageChange}
           color="primary"
+          style={{backgroundColor: '#F5A006' }}
           className='pagination-buttons'
         />
       </Stack>
