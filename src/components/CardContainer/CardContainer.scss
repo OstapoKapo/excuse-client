@@ -35,6 +35,10 @@
         @include center();
         width: 100%;
     }
+    .pagination-buttons{
+        position: absolute;
+        bottom: 30px;
+    }
 }
 @media screen and (max-width:1450px){
     .block_adding-cards{

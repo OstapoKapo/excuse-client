@@ -4,7 +4,7 @@
     @include block(auto);
     min-height: 100vh;
     display: block;
-    padding: 100px;
+    padding: 0 100px;
     padding-top: 0px;
     position: relative;
     &__logout{

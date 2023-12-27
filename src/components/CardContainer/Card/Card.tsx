@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { useEffect } from 'react';
 import './Card.scss';

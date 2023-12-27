@@ -45,7 +45,7 @@ const CardContainer: React.FC = () => {
     const fetchExcuses = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/exuses');
-        const dividedExcuses = chunkArray(response.data.reverse(), 5);
+        const dividedExcuses = chunkArray(response.data.reverse(), 4);
         console.log(response.data)
         setExcuses(dividedExcuses);
       } catch (error) {
@@ -143,6 +143,7 @@ const CardContainer: React.FC = () => {
           page={currentPage}
           onChange={handlePageChange}
           color="primary"
+          className='pagination-buttons'
         />
       </Stack>
     </div>

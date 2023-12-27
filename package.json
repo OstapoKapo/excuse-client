@@ -23,6 +23,7 @@
     "typeScript": "npm:typescript@^5.3.3"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.1",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
