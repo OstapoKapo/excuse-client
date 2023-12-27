@@ -1,5 +1,6 @@
 @import '../../scss/mixins.scss';
 
+
 .CardContainer{
     @include block(90%);
     flex-direction: column;
@@ -28,5 +29,9 @@
         margin-top: 30px;
         flex-wrap: wrap;
         @include center();
+    }
+    .pagination-container{
+        @include center();
+        width: 100%;
     }
 }
