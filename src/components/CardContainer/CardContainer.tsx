@@ -3,11 +3,11 @@ import axios from 'axios';
 import './CardContainer.scss';
 import Card from './Card/Card';
 
-interface Vidmazka {
-  excuse: string;
-  date: string;
-  creator: string;
-}
+// interface Vidmazka {
+//   excuse: string;
+//   date: string;
+//   creator: string;
+// }
 
 const CardContainer = () => {
   const getCurrentDate = (): string => {
@@ -26,13 +26,14 @@ const CardContainer = () => {
     date: getCurrentDate(),
   });
 
-  const [excuses, setExcuses] = useState<Array<Vidmazka>>([]);
+  const [excuses, setExcuses] = useState<Array<any>>([]);
 
   useEffect(() => {
     const fetchExcuses = async () => {
         try {
           const response = await axios.get('http://localhost:8000/api/exuses');
           setExcuses(response.data);
+          console.log(response.data)
         } catch (error) {
           console.error('Error fetching data:', error);
       
@@ -97,7 +98,7 @@ const CardContainer = () => {
       </div>
       <div className='block_cards'>
         {excuses.map((item, index) => (
-          <Card key={index} excuse={item.excuse} creator={item.creator} />
+          <Card key={index} idObject={item._id} excuse={item.excuse} creator={item.creator} />
         ))}
       </div>
     </div>
