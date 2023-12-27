@@ -4,8 +4,11 @@ import './Login.scss';
 import CryptoJS from "crypto-js";
 import { useNavigate } from 'react-router-dom';
 
+interface LoginProps {
+    handleLogin: () => void;
+}
 
-const Login: FC = () => {
+const Login: FC<LoginProps> = ({ handleLogin }) => {
 
     const navigate = useNavigate()
 
@@ -54,7 +57,8 @@ const Login: FC = () => {
                             password: data.password.toLowerCase()
                         };
                         if(userData.login === adminData[0]&& userData.password === adminData[1]){
-                            navigate('/main')
+                            handleLogin();
+                            navigate('/main');
                         }else{
                             alert('Incorrect password or name')
                         }
