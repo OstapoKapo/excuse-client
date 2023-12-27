@@ -183,6 +183,16 @@ const CardContainer: React.FC = () => {
     }
   };
 
+  // const deleteExuse = async (exuseId: string) => {
+  //   try {
+  //     await axios.delete(`http://localhost:8000/deleteExuse/${exuseId}`);
+  //     const updatedExcuses = excuses.filter(item => item._id !== exuseId);
+  //     setExcuses(updatedExcuses);
+  //   } catch (error) {
+  //     console.log('Error deleting', error);
+  //   }
+  // };
+
   const deleteExuse = async (exuseId: string) => {
     try {
       await axios.delete(`http://localhost:8000/deleteExuse/${exuseId}`);
@@ -192,6 +202,8 @@ const CardContainer: React.FC = () => {
       console.log('Error deleting', error);
     }
   };
+
+
 
   return (
     <div className='CardContainer'>
