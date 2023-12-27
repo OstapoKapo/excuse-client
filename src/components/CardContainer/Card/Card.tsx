@@ -1,6 +1,9 @@
+
+import { FC } from 'react';
 import './Card.scss';
 import axios from 'axios';
 import AuthorImg from  './img/author.png';
+
 import DateImg from './img/date.png';
 import PanImg from './img/pen.png';
 import OkPng from './img/ok.png';
@@ -9,7 +12,7 @@ import CloseImg from './img/close.png';
 import { useRef, useState } from 'react';
 
 
-const Card = (props: any, setExcuses: any) => {
+const Card = (props: any) => {
 
     const cardInput: any = useRef(null)
 
@@ -59,6 +62,14 @@ const handleChange = (e: any) : void => {
     }
   }
 
+interface CardProp {
+    idObject: string;
+    creator: string;
+    excuse: string;
+    onDelete: (idObject: string) => void;
+}
+
+
     return (
         <div className='card'>
             <div className="card__author">
@@ -74,12 +85,16 @@ const handleChange = (e: any) : void => {
                 
                 ) : <div className="card__text">{props.excuse}</div>}
                 
+                <div className="card__author__name">{props.creator}</div>
+            </div>
+            <div className="card__main">
+                <div className="card__text">{props.excuse}</div>
             </div>
             <div className="card__data">
                 <div className="card__img">
                     <img src={DateImg} alt="" />
                 </div>
-                <div className="card__text">{props.date}</div>
+                <div className="card__text">{/* Add date here */}</div>
             </div>
             <div className="card__buttons">
                 {changeKey ? (
@@ -98,13 +113,14 @@ const handleChange = (e: any) : void => {
                     <img src={CloseImg} alt="" />
                 </div>
                 ) : (
-                <div className="card__btn">
+                <div className="card__buttons__btn" onClick={() => onDelete(props._id)}>
                     <img src={DeleteImg} alt="" />
                 </div>
                 )}
             </div>
         </div>
-    )
+    );
 }
 
-export default Card
+
+export default Card;
