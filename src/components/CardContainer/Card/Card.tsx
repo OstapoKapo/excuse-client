@@ -4,7 +4,6 @@ import './Card.scss';
 import axios from 'axios';
 import AuthorImg from  './img/author.png';
 
-import DateImg from './img/date.png';
 import PanImg from './img/pen.png';
 import OkPng from './img/ok.png';
 import DeleteImg from './img/delete.png';
