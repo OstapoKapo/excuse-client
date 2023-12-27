@@ -8,7 +8,7 @@ import './CardContainer.scss';
 
 interface Excuse {
   creator: string;
-  _id: any
+  _id: string
   excuse: string;
   date: string;
 }
