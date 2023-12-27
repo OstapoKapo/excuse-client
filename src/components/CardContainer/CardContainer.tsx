@@ -7,8 +7,9 @@ import './CardContainer.scss';
 
 
 interface Excuse {
+  _id: string;
   creator: string;
-  exuse: string;
+  excuse: string;
   date: string;
 }
 
@@ -42,16 +43,6 @@ const CardContainer: React.FC = () => {
 
   useEffect(() => {
     const fetchExcuses = async () => {
-        try {
-          const response = await axios.get('http://localhost:8000/api/exuses');
-          setExcuses(response.data);
-          console.log(response.data)
-        } catch (error) {
-          console.error('Error fetching data:', error);
-      
-          if (axios.isAxiosError(error)) {
-            console.error('Error response:', error.response);
-          }
       try {
         const response = await axios.get('http://localhost:8000/api/exuses');
         const dividedExcuses = chunkArray(response.data.reverse(), 5);
@@ -67,12 +58,10 @@ const CardContainer: React.FC = () => {
     };
 
     fetchExcuses();
-  }
   }, []);
-  
 
   const chunkArray = (arr: Excuse[], size: number): Excuse[][] => {
-    return arr.reduce((chunks, element, index) => {
+    return arr.reduce((chunks:Array<any>, element, index) => {
       if (index % size === 0) {
         chunks.push([element]);
       } else {
@@ -144,9 +133,8 @@ const CardContainer: React.FC = () => {
         </button>
       </div>
       <div className='block_cards'>
-
         {excuses[currentPage - 1]?.map((item, index) => (
-          <Card key={index} idObject={item._id} excuse={item.excuse} creator={item.creator} onDelete={() => deleteExcuse(item._id)} />
+          <Card key={index} idObject={item._id} chunkArray={chunkArray} setExcuses={setExcuses} excuse={item.excuse} creator={item.creator} onDelete={() => deleteExcuse(item._id)} />
         ))}
       </div>
       <Stack spacing={2} className='pagination-container'>
@@ -162,4 +150,3 @@ const CardContainer: React.FC = () => {
 };
 
 export default CardContainer;
-

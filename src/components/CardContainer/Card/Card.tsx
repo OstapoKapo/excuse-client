@@ -1,6 +1,6 @@
 
 import { FC } from 'react';
-import { useEffect } from 'react';
+
 import './Card.scss';
 import axios from 'axios';
 import AuthorImg from  './img/author.png';
@@ -43,13 +43,15 @@ const handleChange = (e: any) : void => {
     })
     if(e.currentTarget.classList.contains('card__btn_change')){
         let targetId: string = e.currentTarget.getAttribute('data-action');
+        console.log(targetId)
         let value: string = cardInput.current.value
         console.log(cardInput.current.value)
         try {
             await axios.post('http://localhost:8000/changeExcuse', {targetId, value})
                  .then((response) => {
                     if(response.status !== 400){
-                        props.setExcuses(response.data);
+                        const dividedExcuses = props.chunkArray(response.data.reverse(), 5);
+                        props.setExcuses(dividedExcuses);
                     }else{
                         console.log('error');
                     }
@@ -70,58 +72,54 @@ interface CardProp {
     onDelete: (idObject: string) => void;
 }
 
-const Card: FC<CardProp> = ({ idObject, creator, excuse, onDelete }) => {
+
     return (
-        <div className='card'>
-            <div className="card__author">
-                <div className="card__img">
-                    <img src={AuthorImg} alt="" />
-                </div>
-                <div className="card__name">{props.creator}</div>
-            </div>
-            <div className="card__main">
-                {changeKey ? (
-                    
-                <input ref={cardInput} type="text" className="card__input" name={'data'}  onChange={handleChange} value={excuseData.data} placeholder='Ведіть вашу відмазку' />
-                
-                ) : <div className="card__text">{props.excuse}</div>}
-                
-                <div className="card__author__name">{props.creator}</div>
-            </div>
-            <div className="card__main">
-                <div className="card__text">{props.excuse}</div>
-            </div>
-            <div className="card__data">
-                <div className="card__img">
-                    <img src={DateImg} alt="" />
-                </div>
-                <div className="card__text">{/* Add date here */}</div>
-            </div>
-            <div className="card__buttons">
-                {changeKey ? (
-                <div className="card__btn card__btn_change" onClick={changeExcuseHandle} data-action={props._id}>
-                    <img src={OkPng} alt="" />
-                </div>
-                ) : (
-                <div className="card__btn card__btn_change" onClick={changeKeyHandle} data-action={props._id}>
-                    <img src={PanImg} alt="" />
-                </div>
-                )}
-                
+       
+<div className='card'>
+<div className="card__author">
+    <div className="card__img">
+        <img src={AuthorImg} alt="" />
+    </div>
+    <div className="card__name">{props.creator}</div>
+</div>
+<div className="card__main">
+    {changeKey ? (
+        
+    <input ref={cardInput} type="text" className="card__input" name={'data'}  onChange={handleChange} value={excuseData.data} placeholder='Ведіть вашу відмазку' />
+    
+    ) : <div className="card__text">{props.excuse}</div>}
+</div>
+{/* <div className="card__data">
+    <div className="card__img">
+        <img src={DateImg} alt="" />
+    </div>
+    <div className="card__text"></div>
+</div> */}
+<div className="card__buttons">
+    {changeKey ? (
+    <div className="card__btn card__btn_change" onClick={changeExcuseHandle} data-action={props.idObject}>
+        <img src={OkPng} alt="" />
+    </div>
+    ) : (
+    <div className="card__btn card__btn_change" onClick={changeKeyHandle} data-action={props.idObject}>
+        <img src={PanImg} alt="" />
+    </div>
+    )}
+    
 
-                {changeKey ? (
-                <div className="card__btn card__btn_change" onClick={()=> setChangeKey(false)} data-action={props._id}>
-                    <img src={CloseImg} alt="" />
-                </div>
-                ) : (
-                <div className="card__buttons__btn" onClick={() => onDelete(props._id)}>
-                    <img src={DeleteImg} alt="" />
-                </div>
-                )}
-            </div>
-        </div>
+    {changeKey ? (
+    <div className="card__btn card__btn_change" onClick={()=> setChangeKey(false)} data-action={props.idObject}>
+        <img src={CloseImg} alt="" />
+    </div>
+    ) : (
+    <div className="card__btn" onClick={() => props.onDelete(props.idObject)}>
+        <img src={DeleteImg} alt="" />
+    </div>
+    )}
+</div>
+</div>
+
     );
-}
+                }
 
-
-export default Card;
+export default Card
