@@ -9,7 +9,7 @@ import './CardContainer.scss';
 interface Excuse {
   _id: string;
   creator: string;
-  exuse: string;
+  excuse: string;
   date: string;
 }
 
@@ -31,17 +31,22 @@ const CardContainer: React.FC = () => {
 
   const [data, setData] = useState({
     creator: '',
-    exuse: '',
+    excuse: '',
     date: getCurrentDate(),
   });
 
   const [excuses, setExcuses] = useState<Excuse[][]>([]);
 
+  // useEffect(()=>{
+  //   console.log(excuses)
+  // }, [excuses])
+
   useEffect(() => {
     const fetchExcuses = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/exuses');
-        const dividedExcuses = chunkArray(response.data, 5);
+        const dividedExcuses = chunkArray(response.data.reverse(), 5);
+        console.log(response.data)
         setExcuses(dividedExcuses);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -56,7 +61,7 @@ const CardContainer: React.FC = () => {
   }, []);
 
   const chunkArray = (arr: Excuse[], size: number): Excuse[][] => {
-    return arr.reduce((chunks, element, index) => {
+    return arr.reduce((chunks:Array<any>, element, index) => {
       if (index % size === 0) {
         chunks.push([element]);
       } else {
@@ -66,9 +71,6 @@ const CardContainer: React.FC = () => {
     }, []);
   };
 
-  useEffect(()=>{
-    console.log(excuses)
-  }, [excuses])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -84,24 +86,24 @@ const CardContainer: React.FC = () => {
       await axios.post('http://localhost:8000/createExuse', {
         creator: data.creator,
         date: data.date,
-        exuse: data.exuse,
+        excuse: data.excuse,
       });
 
       const response = await axios.get('http://localhost:8000/api/exuses');
-      const dividedExcuses = chunkArray(response.data, 5);
+      const dividedExcuses = chunkArray(response.data.reverse(), 5);
       setExcuses(dividedExcuses);
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
-  const deleteExuse = async (exuseId: string) => {
+  const deleteExcuse = async (excuseId: string) => {
     try {
-      await axios.delete(`http://localhost:8000/deleteExuse/${exuseId}`);
-      const updatedExcuses = excuses.filter(item => item._id !== exuseId);
+      await axios.delete(`http://localhost:8000/deleteExuse/${excuseId}`);
+      const updatedExcuses = excuses.filter(item => item._id !== excuseId);
       setExcuses(updatedExcuses);
     } catch (error) {
-      console.log('Error deleting', error);
+      console.log('Error deleting: ', error);
     }
   };
 
@@ -121,8 +123,8 @@ const CardContainer: React.FC = () => {
             type='text'
             className='input_adding-cards'
             placeholder='Відмазка...'
-            name='exuse'
-            value={data.exuse}
+            name='excuse'
+            value={data.excuse}
             onChange={handleChange}
           />
         </div>
@@ -132,7 +134,7 @@ const CardContainer: React.FC = () => {
       </div>
       <div className='block_cards'>
         {excuses[currentPage - 1]?.map((item, index) => (
-          <Card key={index} idObject={item._id} excuse={item.excuse} creator={item.creator} onDelete={() => deleteExuse(item._id)} />
+          <Card key={index} idObject={item._id} excuse={item.excuse} creator={item.creator} onDelete={() => deleteExcuse(item._id)} />
         ))}
       </div>
       <Stack spacing={2} className='pagination-container'>

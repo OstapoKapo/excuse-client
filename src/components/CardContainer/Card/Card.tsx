@@ -1,5 +1,6 @@
 
 import { FC } from 'react';
+import { useEffect } from 'react';
 import './Card.scss';
 import AuthorImg from './img/author.png';
 import DateImg from './img/date.png';
@@ -13,6 +14,11 @@ interface CardProp {
 }
 
 const Card: FC<CardProp> = ({ idObject, creator, excuse, onDelete }) => {
+
+    useEffect(()=>{
+        console.log(idObject, creator, excuse)
+    }, [])
+
     return (
         <div className='card'>
             <div className="card__author">
