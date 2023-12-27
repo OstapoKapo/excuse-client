@@ -7,6 +7,7 @@ interface Vidmazka {
   excuse: string;
   date: string;
   creator: string;
+  _id: any
 }
 
 const CardContainer = () => {
@@ -33,6 +34,7 @@ const CardContainer = () => {
         try {
           const response = await axios.get('http://localhost:8000/api/exuses');
           setExcuses(response.data);
+          console.log(response.data)
         } catch (error) {
           console.error('Error fetching data:', error);
       
@@ -97,7 +99,7 @@ const CardContainer = () => {
       </div>
       <div className='block_cards'>
         {excuses.map((item, index) => (
-          <Card key={index} excuse={item.excuse} creator={item.creator} />
+          <Card setExcuses={setExcuses} key={index} _id={item._id} excuse={item.excuse} creator={item.creator} date={item.date}/>
         ))}
       </div>
     </div>

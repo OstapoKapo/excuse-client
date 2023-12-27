@@ -16,7 +16,7 @@
 }
 @mixin block($height) {
     width: 100%;
-    height: $height;
+    min-height: $height;
     display: flex;
     justify-content: center;
     background-color: rgb(37, 35, 51);
