@@ -17,7 +17,7 @@ const CardContainer: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
 

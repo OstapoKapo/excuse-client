@@ -2,8 +2,7 @@
 .Header{
     @include center();
     height: 70px;
-    margin-bottom: 40px;
-    padding-top: 20px;
+    padding: 70px 0;
 }
 h1{
     @include text(45px, #fff, 700);
