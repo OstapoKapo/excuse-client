@@ -4,6 +4,8 @@
 .login{
     @include block(100vh);
     &__container{
+        height:100vh;
+        width: 100%;
         @include center();
         flex-direction: column;
         gap: 50px;
