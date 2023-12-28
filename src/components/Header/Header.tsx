@@ -40,7 +40,6 @@ const Header: React.FC<Header> = ({setExcuses}) => {
             }
           }
         };
-    
         fetchExcuses();
       }, []);
     
@@ -61,7 +60,6 @@ const Header: React.FC<Header> = ({setExcuses}) => {
               if (searchData === '') {
                 return el;
             }
-            //return the item which contains the user input
             else {
                 return el.creator.toLowerCase().includes(searchData)
             }
