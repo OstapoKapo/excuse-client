@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card/Card';
@@ -5,6 +6,12 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import './CardContainer.scss';
 
+interface cardContainer {
+  currentPage: any,
+  setCurrentPage: any,
+  excuses: any,
+  setExcuses: any
+}
 
 interface Excuse {
   _id: string;
@@ -13,9 +20,8 @@ interface Excuse {
   date: string;
 }
 
-const CardContainer: React.FC = () => {
+const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, excuses, setExcuses}) => {
 
-  const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
@@ -35,7 +41,6 @@ const CardContainer: React.FC = () => {
     date: getCurrentDate(),
   });
 
-  const [excuses, setExcuses] = useState<Excuse[][]>([]);
 
   // useEffect(()=>{
   //   console.log(excuses)
@@ -88,7 +93,11 @@ const CardContainer: React.FC = () => {
         date: data.date,
         excuse: data.excuse,
       });
-
+      setData({
+        creator: '',
+        excuse: '',
+        date: getCurrentDate(),
+      })
       const response = await axios.get('http://localhost:8000/api/exuses');
       const dividedExcuses = chunkArray(response.data.reverse(), 5);
       setExcuses(dividedExcuses);

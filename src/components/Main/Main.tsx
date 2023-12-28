@@ -1,21 +1,25 @@
+import  {useState} from 'react';
 import './Main.scss';
 import CardContainer from '../CardContainer/CardContainer';
 import Header from '../Header/Header';
-import { useNavigate } from 'react-router-dom';
+
+
+interface Excuse {
+    _id: string;
+    creator: string;
+    excuse: string;
+    date: string;
+  }
 
 const Main = () => {
-    const navigate = useNavigate()
-
-    const logout = () : void => {
-        localStorage.setItem('isLoggedIn', 'false');
-        navigate('/');
-    }
+    
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [excuses, setExcuses] = useState<Excuse[][]>([]);
 
     return (
         <div className='Main'>
-            <Header />
-            <CardContainer />
-            <button onClick={logout} className='Main__logout'>Вийти</button>
+            <Header currentPage={currentPage} excuses={excuses} setExcuses={setExcuses}/>
+            <CardContainer currentPage={currentPage} setCurrentPage={setCurrentPage} excuses={excuses} setExcuses={setExcuses}/>
         </div>
     )
 }

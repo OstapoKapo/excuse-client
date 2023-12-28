@@ -1,6 +1,7 @@
 @import '../../scss/mixins.scss';
-.Header{
-    @include center();
+.header{
+    display: flex;
+    align-items: center;
     height: 70px;
     padding: 70px 0;
     h1{
@@ -17,6 +18,43 @@
     @media screen and (max-width:570px) {
         h1{
             font-size: 30px;
+        }
+    }
+    &__left,
+    &__right{
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        background-color: red;
+    }
+    &__right{
+        width: 60%;
+        display: flex;
+        justify-content: end;
+    }
+    &__logout{
+        @include button(100px);
+        margin-left: 50px;
+    }
+    &__search{
+        background-color: #3F3D56;
+        width: min-content;
+        height: min-content;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+    }
+    &__input{
+        @include input(300px)
+    }
+    &__img{
+        margin: 0 20px;
+        width: 30px;
+        height: 30px;
+        & img{
+            width: 100%;
+            height: 100%;
         }
     }
 }

@@ -7,10 +7,4 @@
     padding: 0 100px;
     padding-top: 0px;
     position: relative;
-    &__logout{
-        @include button(100px);
-        position: absolute;
-        top: 40px;
-        right: 40px;
-    }
 }
