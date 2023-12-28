@@ -87,24 +87,32 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
 
   const createExcuse = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+  
+    if (!data.creator.trim() || !data.excuse.trim()) {
+      alert('Please enter both creator and excuse')
+      return;
+    }
+  
     try {
       await axios.post('http://localhost:8000/createExuse', {
         creator: data.creator,
         date: data.date,
         excuse: data.excuse,
       });
+  
+      const response = await axios.get('http://localhost:8000/api/exuses');
+      const dividedExcuses = chunkArray(response.data.reverse(), 4);
+      setExcuses(dividedExcuses);
       setData({
         creator: '',
         excuse: '',
         date: getCurrentDate(),
-      })
-      const response = await axios.get('http://localhost:8000/api/exuses');
-      const dividedExcuses = chunkArray(response.data.reverse(), 5);
-      setExcuses(dividedExcuses);
+      });
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
 
   const deleteExcuse = async (excuseId: string) => {
     try {
@@ -136,10 +144,11 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
             value={data.excuse}
             onChange={handleChange}
           />
+          <button onClick={createExcuse} className='btn_adding-cards'>
+          Додати
+          </button>
         </div>
-        <button onClick={createExcuse} className='btn_adding-cards'>
-          Додати нову відмазку
-        </button>
+        <input className='search-input' type="text" placeholder='Пошук...'/>
       </div>
       <div className='block_cards'>
         {excuses[currentPage - 1]?.map((item, index) => (
@@ -152,6 +161,7 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
           page={currentPage}
           onChange={handlePageChange}
           color="primary"
+          style={{backgroundColor: '#F5A006' }}
           className='pagination-buttons'
         />
       </Stack>

@@ -1,10 +1,7 @@
-import { FC } from 'react';
-
 import './Card.scss';
 import axios from 'axios';
 import AuthorImg from  './img/author.png';
 
-import DateImg from './img/date.png';
 import PanImg from './img/pen.png';
 import OkPng from './img/ok.png';
 import DeleteImg from './img/delete.png';
@@ -64,12 +61,6 @@ const handleChange = (e: any) : void => {
     }
   }
 
-interface CardProp {
-    idObject: string;
-    creator: string;
-    excuse: string;
-    onDelete: (idObject: string) => void;
-}
 
 
     return (
