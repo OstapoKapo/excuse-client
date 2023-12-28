@@ -14,12 +14,10 @@ interface Excuse {
   }
 
   interface Header {
-    currentPage: any,
-    excuses: any,
     setExcuses: any
   }
 
-const Header: React.FC<Header> = ({currentPage, excuses, setExcuses}) => {
+const Header: React.FC<Header> = ({setExcuses}) => {
 
     const navigate = useNavigate()
   
@@ -46,7 +44,6 @@ const Header: React.FC<Header> = ({currentPage, excuses, setExcuses}) => {
         fetchExcuses();
       }, []);
     
-    // Handles changes in inputs data
     const inputHandle= (e: any) => {
         let lowerCase = e.target.value.toLowerCase();
         setSearchData(lowerCase);

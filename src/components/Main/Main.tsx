@@ -18,7 +18,7 @@ const Main = () => {
 
     return (
         <div className='Main'>
-            <Header currentPage={currentPage} excuses={excuses} setExcuses={setExcuses}/>
+            <Header setExcuses={setExcuses}/>
             <CardContainer currentPage={currentPage} setCurrentPage={setCurrentPage} excuses={excuses} setExcuses={setExcuses}/>
         </div>
     )

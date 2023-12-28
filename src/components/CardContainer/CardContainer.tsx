@@ -7,9 +7,9 @@ import Stack from '@mui/material/Stack';
 import './CardContainer.scss';
 
 interface cardContainer {
-  currentPage: any,
+  currentPage: number,
   setCurrentPage: any,
-  excuses: any,
+  excuses: Excuse[][],
   setExcuses: any
 }
 
@@ -148,7 +148,6 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
           Додати
           </button>
         </div>
-        <input className='search-input' type="text" placeholder='Пошук...'/>
       </div>
       <div className='block_cards'>
         {excuses[currentPage - 1]?.map((item, index) => (
