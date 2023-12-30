@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './Card/Card';
@@ -20,12 +19,27 @@ interface Excuse {
   date: string;
 }
 
-const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, excuses, setExcuses}) => {
+const CardContainer: React.FC<cardContainer> = ({ currentPage, setCurrentPage, excuses, setExcuses }) => {
+
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
 
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
+  const startDateChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setStartDate(e.target.value)
+
+  }
+  const endDateChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setEndDate(e.target.value)
+
+  }
+  const clearDate = () => {
+    setStartDate('')
+    setEndDate('')
+  }
 
   const getCurrentDate = (): string => {
     const currentDate: Date = new Date();
@@ -50,7 +64,27 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
     const fetchExcuses = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/exuses');
-        const dividedExcuses = chunkArray(response.data.reverse(), 4);
+        let filteredExcuses = response.data;
+
+        if (startDate) {
+          filteredExcuses = filteredExcuses.filter((excuse: Excuse) => {
+            const date = new Date(excuse.date.split('/').reverse().join('-'))
+            return date >= new Date(startDate)
+          })
+        }
+        if (endDate) {
+          filteredExcuses = filteredExcuses.filter((excuse: Excuse) => {
+            const date = new Date(excuse.date.split('/').reverse().join('-'))
+            return date <= new Date(endDate)
+          })
+
+        }
+        const sortedExcuses = filteredExcuses.sort((start: Excuse, end: Excuse) => {
+          const dateStart = new Date(start.date.split('/').reverse().join('-'));
+          const dateEnd = new Date(end.date.split('/').reverse().join('-'));
+          return dateEnd.getTime() - dateStart.getTime()
+        })
+        const dividedExcuses = chunkArray(sortedExcuses, 4);
         console.log(response.data)
         setExcuses(dividedExcuses);
       } catch (error) {
@@ -63,10 +97,10 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
     };
 
     fetchExcuses();
-  }, []);
+  }, [startDate, endDate, setExcuses]);
 
   const chunkArray = (arr: Excuse[], size: number): Excuse[][] => {
-    return arr.reduce((chunks:Array<any>, element, index) => {
+    return arr.reduce((chunks: Array<any>, element, index) => {
       if (index % size === 0) {
         chunks.push([element]);
       } else {
@@ -87,21 +121,47 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
 
   const createExcuse = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-  
+
     if (!data.creator.trim() || !data.excuse.trim()) {
       alert('Please enter both creator and excuse')
       return;
     }
-  
+
     try {
       await axios.post('http://localhost:8000/createExuse', {
         creator: data.creator,
         date: data.date,
         excuse: data.excuse,
       });
-  
+
       const response = await axios.get('http://localhost:8000/api/exuses');
-      const dividedExcuses = chunkArray(response.data.reverse(), 4);
+      let updatedExcuses = [...response.data, {
+        _id: response.data.length.toString(),
+        creator: data.creator,
+        date: data.date,
+        excuse: data.excuse,
+
+      }]
+      if (startDate) {
+        updatedExcuses = updatedExcuses.filter((excuse: Excuse) => {
+          const date = new Date(excuse.date.split('/').reverse().join('-'))
+          return date >= new Date(startDate)
+
+        })
+      }
+      if (endDate) {
+        updatedExcuses = updatedExcuses.filter((excuse: Excuse) => {
+          const date = new Date(excuse.date.split('/').reverse().join('-'))
+          return date <= new Date(endDate)
+
+        })
+      }
+      const sortedExcuses = updatedExcuses.sort((start: Excuse, end: Excuse) => {
+        const dateStart = new Date(start.date.split('/').reverse().join('-'));
+        const dateEnd = new Date(end.date.split('/').reverse().join('-'));
+        return dateEnd.getTime() - dateStart.getTime()
+      })
+      const dividedExcuses = chunkArray(sortedExcuses, 4);
       setExcuses(dividedExcuses);
       setData({
         creator: '',
@@ -124,10 +184,14 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
     }
   };
 
+
   return (
     <div className='CardContainer'>
       <div className='block_adding-cards'>
         <div className='for_inputs'>
+          <button onClick={clearDate} className='btn_clear-date'>Clear</button>
+          <input type="date" name="" value={startDate} onChange={startDateChange} className='input_select-date' />
+          <input type="date" name="" value={endDate} onChange={endDateChange} className='input_select-date' />
           <input
             type='text'
             className='input_adding-cards'
@@ -144,15 +208,25 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
             value={data.excuse}
             onChange={handleChange}
           />
+
           <button onClick={createExcuse} className='btn_adding-cards'>
-          Додати
+            Додати
           </button>
         </div>
       </div>
       <div className='block_cards'>
-        {excuses[currentPage - 1]?.map((item, index) => (
-          <Card key={index} idObject={item._id} chunkArray={chunkArray} setExcuses={setExcuses} excuse={item.excuse} creator={item.creator} onDelete={() => deleteExcuse(item._id)} />
-        ))}
+        {
+          excuses[currentPage - 1]?.length > 0 ? (
+            excuses[currentPage - 1]?.map((item, index) => (
+              <Card key={index} idObject={item._id} chunkArray={chunkArray} setExcuses={setExcuses} excuse={item.excuse} creator={item.creator} onDelete={() => deleteExcuse(item._id)} />
+            ))
+
+          ) : (
+            <p className='non_founded-cards'>Не знайдено відмазок в цей період</p>
+
+          )
+
+        }
       </div>
       <Stack spacing={2} className='pagination-container'>
         <Pagination
@@ -160,7 +234,7 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
           page={currentPage}
           onChange={handlePageChange}
           color="primary"
-          style={{backgroundColor: '#F5A006' }}
+          style={{ backgroundColor: '#F5A006' }}
           className='pagination-buttons'
         />
       </Stack>
@@ -169,3 +243,5 @@ const CardContainer: React.FC<cardContainer> = ({currentPage, setCurrentPage, ex
 };
 
 export default CardContainer;
+
+

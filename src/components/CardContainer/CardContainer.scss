@@ -1,69 +1,95 @@
 @import '../../scss/mixins.scss';
 
 
-.CardContainer{
+.CardContainer {
     @include block(90%);
     flex-direction: column;
-    .block_adding-cards{
+
+    .block_adding-cards {
         @include row();
         @include center();
         flex-direction: column;
         gap: 10px;
-        .for_inputs{
+
+        .for_inputs {
             width: 100%;
             height: auto;
             @include center();
             gap: 10px;
-            .input_adding-cards{
+
+            .input_adding-cards {
                 @include input(25%);
                 cursor: text;
             }
-            .btn_adding-cards{
+
+            .btn_adding-cards {
                 @include button(150px);
             }
+
+            .input_select-date {
+                @include input(15%)
+            }
+
+            .btn_clear-date {
+                @include button(80px)
+            }
         }
-        .search-input{
+
+        .search-input {
             @include input(calc(170px + 50%));
         }
     }
-    .block_cards{
+
+    .block_cards {
         margin-top: 30px;
         flex-wrap: wrap;
         @include center();
+
     }
-    .pagination-container{
+
+    .non_founded-cards {
+        @include text(19px, #fff, 500)
+    }
+
+    .pagination-container {
         @include center();
         width: 100%;
     }
-    .pagination-buttons{
+
+    .pagination-buttons {
         position: absolute;
         bottom: 30px;
         padding: 5px 10px;
         border-radius: 5px;
     }
 }
-@media screen and (max-width:1450px){
-    .block_adding-cards{
+
+@media screen and (max-width:1450px) {
+    .block_adding-cards {
         flex-direction: column;
         gap: 20px;
     }
-    .btn_adding-cards{
+
+    .btn_adding-cards {
         margin-left: 0 !important;
         font-size: 16px !important;
     }
 }
-@media screen and (max-width:1265px){
-        .btn_adding-cards{
-            width: 213.11px !important;
-        }    
-}
-@media screen and (max-width:800px){
-    .btn_adding-cards{
-    width: 170px !important;
+
+@media screen and (max-width:1265px) {
+    .btn_adding-cards {
+        width: 213.11px !important;
     }
 }
+
+@media screen and (max-width:800px) {
+    .btn_adding-cards {
+        width: 170px !important;
+    }
+}
+
 @media screen and (max-width:615px) {
-    .btn_adding-cards{
+    .btn_adding-cards {
         width: 135px !important;
-        }
+    }
 }
