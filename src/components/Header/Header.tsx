@@ -49,8 +49,8 @@ const Header: React.FC<Header> = ({setExcuses}) => {
       } 
 
     const logout = () : void => {
-        localStorage.setItem('isLoggedIn', 'false');
-        navigate('/');
+      localStorage.removeItem('token');        
+      navigate('/');
     }
 
     useEffect(() =>{

@@ -5,7 +5,7 @@ import CryptoJS from "crypto-js";
 import { useNavigate } from 'react-router-dom';
 
 interface LoginProps {
-    handleLogin: () => void;
+    handleLogin: (token: string) => void;
 }
 
 const Login: FC<LoginProps> = ({ handleLogin }) => {
@@ -44,35 +44,38 @@ const Login: FC<LoginProps> = ({ handleLogin }) => {
         password: string
     }
 
-    // post function to server (send data)
-    const login = async  (e:any) => {
+    const login = async (e: any) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8000/createUser', {})
-                 .then((response) => {
-                    if(response.status !== 400){
-                        let adminData = decrypt(response.data.name, response.data.password);
-                        let userData: UserData = {
-                            login: data.login.toLowerCase(),
-                            password: data.password.toLowerCase()
-                        };
-                        if(userData.login === adminData[0]&& userData.password === adminData[1]){
-                            handleLogin();
-                            navigate('/main');
-                        }else{
-                            alert('Incorrect password or name')
-                        }
-                    }else{
-                        console.log('error');
-                    }
-                 })
-                 .catch((error) => {
-                     console.error('Error:', error);
-                 });
-        } catch(error) {
-            console.error(error)
+          const response = await axios.post('http://localhost:8000/createUser', {});
+      
+          if (response.status !== 400) {
+            const userData = response.data.user;
+            const token = response.data.token;
+
+            console.log(token)
+      
+            let adminData = decrypt(userData.name, userData.password);
+      
+            let inputData: UserData = {
+              login: data.login.toLowerCase(),
+              password: data.password.toLowerCase(),
+            };
+      
+            if (inputData.login === adminData[0] && inputData.password === adminData[1]) {
+              handleLogin(token);
+              navigate('/main');
+            } else {
+              alert('Incorrect password or name');
+            }
+          } else {
+            console.log('Error:', response.data.error);
+          }
+        } catch (error) {
+          console.error('Error:', error);
         }
-    }
+      };
+      
 
   return (
     <div className='login'>
